@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>eXch / Automatic cryptocurrency exchange</title>
+    
+    <style>
+		a{  text-decoration:none; }
+
+   </style>
+  </head>
+  <body class="text-white bg-dark d-flex flex-column h-100">
+ 
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-top border-dark">
+  <div class="container-fluid">
+    <!--<span class="navbar-brand font-monospace">/ E X C H /</span> -->
+    <span class="navbar-brand">
+      <img src="/logo_primary.png" alt="eXch - automatic cryptocurrency exchange">
+    </span>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Exchange</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/faq">Q&A</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/support">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/api">API</a>
+        </li>
+
+      </ul>
+      <span class="navbar-text">
+          <a href="/status" style="color:grey">System status</a> 
+          <span class="ms-2 me-2 badge rounded-pill bg-success">All systems operational</span> 
+      </span>
+
+  </div>
+</nav>
+
+  
+
+
+
+ <div class="border p-1 ">
+    <span class="lead">Automatic cryptocurrency swaps</span>
+    <span class="float-end ms-5 text-secondary  text-white">&rarr; No registration</span>
+    <span class="float-end ms-5 text-secondary  text-white">&rarr; No hidden fees</span>
+    <span class="float-end ms-5 text-secondary  text-white"> &rarr; No delays</span>
+  </div>
+
+<main class="flex-shrink-0">
+<div class="container">
+
+
+
+
+	<div class="mt-5">
+		<form>
+		<div class="row g-0">
+		  <div class="col-md-2">
+		    <div class="form-floating">
+					  <select class="form-select" id="from_currency" name="from_currency">
+						  
+
+									<option value="XMR"   >Monero</option>
+									<option value="LTC"   >Litecoin</option>
+									<option value="ETH"   >Ethereum</option>
+									<option value="DASH"   >Dash</option>
+									<option value="BTC" selected  >Bitcoin</option>
+					        
+									<option value="USDC"   >USDC [Ethereum]</option>
+									<option value="USDT"   >USDT [Ethereum]</option>
+									<option value="DAI"   >DAI [Ethereum]</option>
+					        
+					        
+
+					  </select>
+					  <label for="from_currency"><span class="text-primary fw-bold" >From currency</span></label>
+		    </div>
+		  </div>
+		  <div class="col-md-3">
+		    <div class="form-floating">
+					<input type="text" class="form-control" id="from_amount" name="from_amount" value="1"><label for="from_amount"><span class="text-primary fw-bold" >Amount</span></label>
+		    </div>
+		  </div>
+		  <div class="col-md-7">
+		    <div class="form-floating">
+					<input type="text" class="form-control " id="refund_address" name="refund_address"><label for="refund_address"><span class="text-primary fw-bold" >Refund address</span></label>
+		    </div>
+		  </div>
+		</div>
+		
+			
+
+		<div class="row p-1 mb-1">
+			  <div class="col-md-2"><a href="/?calc=1&from_currency=XMR&from_amount=1&to_currency=BTC" class="link-warning fs-4" style="text-decoration: none">&uarr;&darr;</a></div>
+		</div>
+		
+		
+		
+		<div class="row g-0">
+			
+		  <div class="col-md-2">
+		    <div class="form-floating">
+					  <select class="form-select" id="to_currency" name="to_currency">
+									<option value="BTC"   >Bitcoin</option>
+									<option value="DASH"   >Dash</option>
+									<option value="ETH"   >Ethereum</option>
+									<option value="LTC"   >Litecoin</option>
+									<option value="XMR" selected  >Monero</option>
+					        
+									<option value="USDC"   >USDC [Ethereum]</option>
+									<option value="USDT"   >USDT [Ethereum]</option>
+									<option value="DAI"   >DAI [Ethereum]</option>
+					        
+					  </select>
+					  <label for="to_currency"><span class="text-primary fw-bold" >To currency</span></label>
+		    </div>
+		  </div>
+		  <div class="col-md-3">
+		    <div class="form-floating">
+					<input type="text" class="form-control " id="to_amount" name="to_amount" value=""><label for="to_amount"><span class="text-primary fw-bold" >Amount   </span> </label>
+		    </div>
+		  </div>
+		  <div class="col-md-7">
+		    <div class="form-floating">
+					<input type="text" class="form-control " id="to_address" name="to_address" value=""><label for="to_address"><span class="text-primary fw-bold">To address</span></label>
+		    </div>
+		  </div>
+
+		</div> 
+
+
+		
+		<div class="row g-0">
+			
+		  <div class="col-md-2"> </div>
+		  <div class="col-md-3">
+				<span class="text-primary fw-bold"></span> 
+		  </div>
+		  <div class="col-md-7">  </div>
+
+		</div> 
+
+
+<div class="row mt-4">
+  <div class="col-auto">
+
+
+<input type="radio" class="btn-check" name="rate_mode" id="flatmode" autocomplete="off" value="flat"  >
+<label class="btn btn-outline-info" for="flatmode">Flat rate </label>
+
+
+  </div>
+
+  <div class="col-auto ">
+
+<input type="radio" class="btn-check" name="rate_mode" id="dynamicmode" autocomplete="off" value="dynamic" checked >
+<label class="btn btn-outline-info" for="dynamicmode">Dynamic rate   </label>
+
+  </div>
+</div>
+
+
+		<div class="row mt-4">
+			  <div class="col-md-12">   
+
+
+					<button type="submit" name="calc" value=1 class="btn btn-primary btn-lg">Calculate</button> 
+					<span class="ms-4 text-secondary">|</span>
+					<button type="submit" name="create" value=1 class="ms-4 btn btn-primary btn-lg">Exchange</button>  
+					
+					 
+						<input type="text" class="d-none" name="anyamount" value=1>
+					
+					<span class="text-secondary ps-5" style="font-size:0.8em">You can start exchange without calculating and send any amount (calculation will be performed on receipt)</span>
+
+			  </div>
+			  
+		</div>
+		
+		
+		
+		</form>
+	</div>
+
+
+
+	
+	<div class="mt-5 text-muted" style="font-size:0.8em">Reserves</div>
+	<div class="d-flex flex-wrap justify-content-center border" style="font-size:0.8em"> 
+								
+				<div class="p-4 font-monospace" > XMR 37.173709097995  </div>
+								
+				<div class="p-4 font-monospace" > LTC 370.16911577  </div>
+								
+				<div class="p-4 font-monospace" > ETH 31.5577259492418  </div>
+								
+				<div class="p-4 font-monospace" > DASH 6.29587376  </div>
+								
+				<div class="p-4 font-monospace" > BTC 8.29200094  </div>
+					        
+
+										<div class="p-4 font-monospace" > USDC 2350.581169  </div>
+
+
+										<div class="p-4 font-monospace" > USDT 4056.029045  </div>
+
+
+										<div class="p-4 font-monospace" > DAI 4350.12220222217  </div>
+
+					        
+	</div>
+	
+	<div class="text-info" style="font-size:0.8em">All the listed reserves belong to us and are currently allocated on our wallets/nodes. We do not depend on any third-party liquidity providers. We can provide a proof of reserves on request.</div>
+	
+	<div class="row gx-5 pt-5">
+
+			<div class="col-auto">  
+			
+				<ul>
+					<li>Current rate is a median value based on the latest trading data of the following markets: <strong>Binance</strong>, <strong>OKEX</strong>, <strong>Kraken</strong></li>
+
+					<li>Exchange operations are performed automatically and completed within <strong>1 minute</strong> (except network confirmation time)</li>
+					
+					<li>Calculated amounts include a service fee</li>
+
+					<li>Operations with dynamic rate will have exchange rate fixed after full input confirmation</li>
+
+					<li>Refund address is optional to create an order and can be provided later when needed, <span class="text-decoration-underline">however it can't be changed later once provided</span></li>
+				</ul>
+			</div>
+
+</div>
+
+
+
+	
+	
+			<div class="row  justify-content-center mt-5">	
+	<div class="col-md-4 font-monospace overflow-auto" style="max-height: 300px">  
+	
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_DAI </div>					
+					<div class="col-5 text-start">19788.66</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_DASH </div>					
+					<div class="col-5 text-start">450.856627592426</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_ETH </div>					
+					<div class="col-5 text-start">13.5001957528384</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_LTC </div>					
+					<div class="col-5 text-start">355.871886120996</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_TRX </div>					
+					<div class="col-5 text-start">322580.64516129</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_USDC </div>					
+					<div class="col-5 text-start">19784.13</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_USDT </div>					
+					<div class="col-5 text-start">19784.92</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_WBTC </div>					
+					<div class="col-5 text-start">1</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_XLM </div>					
+					<div class="col-5 text-start">193050.193050193</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_XMR </div>					
+					<div class="col-5 text-start">135.657600217052</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">BTC_XRP </div>					
+					<div class="col-5 text-start">60569.3519079346</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DAI_TRX </div>					
+					<div class="col-5 text-start">16.3012879680226</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DAI_USDC </div>					
+					<div class="col-5 text-start">1.00020765118652</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DAI_USDT </div>					
+					<div class="col-5 text-start">1.00017371794385</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DAI_XLM </div>					
+					<div class="col-5 text-start">9.75559704650001</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DAI_XRP </div>					
+					<div class="col-5 text-start">3.060811187212</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DASH_DAI </div>					
+					<div class="col-5 text-start">43.89124788</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DASH_TRX </div>					
+					<div class="col-5 text-start">715.483870967741</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DASH_USDC </div>					
+					<div class="col-5 text-start">43.88120034</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DASH_USDT </div>					
+					<div class="col-5 text-start">43.88295256</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DASH_XLM </div>					
+					<div class="col-5 text-start">428.185328185328</div>
+
+				</div>
+
+
+
+				<div class="row ">
+					<div class="col-5 text-end text-muted">DASH_XRP </div>					
+					<div class="col-5 text-start">134.342822531799</div>
+
+				</div>
+
+
+			
+	</div>
+	
+	<div class="col-md-4 font-monospace overflow-auto" style="max-height: 300px">  
+
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_DAI </div>					
+					<div class="col-5 text-start">1465.80541218</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_DASH </div>					
+					<div class="col-5 text-start">33.3963029756538</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_LTC </div>					
+					<div class="col-5 text-start">26.3604982206406</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_TRX </div>					
+					<div class="col-5 text-start">23894.5161290323</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_USDC </div>					
+					<div class="col-5 text-start">1465.46986149</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_USDT </div>					
+					<div class="col-5 text-start">1465.52837916</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_XLM </div>					
+					<div class="col-5 text-start">14299.806949807</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_XMR </div>					
+					<div class="col-5 text-start">10.0485654208777</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">ETH_XRP </div>					
+					<div class="col-5 text-start">4486.55360387644</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">LTC_DAI </div>					
+					<div class="col-5 text-start">55.6061346000001</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">LTC_DASH </div>					
+					<div class="col-5 text-start">1.26690712353472</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">LTC_TRX </div>					
+					<div class="col-5 text-start">906.451612903226</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">LTC_USDC </div>					
+					<div class="col-5 text-start">55.5934053000001</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">LTC_USDT </div>					
+					<div class="col-5 text-start">55.5956252000001</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">LTC_XLM </div>					
+					<div class="col-5 text-start">542.471042471043</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">LTC_XRP </div>					
+					<div class="col-5 text-start">170.199878861296</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDC_DAI </div>					
+					<div class="col-5 text-start">1.00022897140284</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDC_TRX </div>					
+					<div class="col-5 text-start">16.3050204967967</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDC_USDT </div>					
+					<div class="col-5 text-start">1.0000399309952</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDC_XLM </div>					
+					<div class="col-5 text-start">9.75783079924126</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDC_XRP </div>					
+					<div class="col-5 text-start">3.06151202544335</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDT_DAI </div>					
+					<div class="col-5 text-start">1.00018903285937</div>
+
+				</div>
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDT_TRX </div>					
+					<div class="col-5 text-start">16.3043694470986</div>
+
+				</div>
+
+
+			
+	</div>
+
+	<div class="col-md-4 font-monospace overflow-auto" style="max-height: 300px">  
+
+
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDT_USDC </div>					
+					<div class="col-5 text-start">1.00003392734889</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDT_XLM </div>					
+					<div class="col-5 text-start">9.75744117490457</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">USDT_XRP </div>					
+					<div class="col-5 text-start">3.06138978110271</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_DAI </div>					
+					<div class="col-5 text-start">19788.66</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_DASH </div>					
+					<div class="col-5 text-start">450.856627592426</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_ETH </div>					
+					<div class="col-5 text-start">13.5001957528384</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_LTC </div>					
+					<div class="col-5 text-start">355.871886120996</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_TRX </div>					
+					<div class="col-5 text-start">322580.64516129</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_USDC </div>					
+					<div class="col-5 text-start">19784.13</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_USDT </div>					
+					<div class="col-5 text-start">19784.92</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_XLM </div>					
+					<div class="col-5 text-start">193050.193050193</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_XMR </div>					
+					<div class="col-5 text-start">135.657600217052</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">WBTC_XRP </div>					
+					<div class="col-5 text-start">60569.3519079346</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XLM_TRX </div>					
+					<div class="col-5 text-start">1.67096774193548</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_DAI </div>					
+					<div class="col-5 text-start">145.87210719</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_DASH </div>					
+					<div class="col-5 text-start">3.32348963029757</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_LTC </div>					
+					<div class="col-5 text-start">2.62330960854093</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_TRX </div>					
+					<div class="col-5 text-start">2377.90322580645</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_USDC </div>					
+					<div class="col-5 text-start">145.838714295</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_USDT </div>					
+					<div class="col-5 text-start">145.84453778</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_XLM </div>					
+					<div class="col-5 text-start">1423.0694980695</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XMR_XRP </div>					
+					<div class="col-5 text-start">446.48697758934</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XRP_TRX </div>					
+					<div class="col-5 text-start">5.3258064516129</div>
+
+				</div>
+			
+		
+			
+				<div class="row ">
+					<div class="col-5 text-end text-muted">XRP_XLM </div>					
+					<div class="col-5 text-start">3.18725868725869</div>
+
+				</div>
+			
+
+			
+	</div>
+	</div>
+</div> 
+
+
+</main>
+
+<footer class="footer ">
+
+  <div class="container-fluid mb-5 mt-5">
+	    <div class="row justify-content-center">
+			<div class="col-auto">
+				<a href="/affiliation"><span class="text-info">Affiliation program</span></a>
+			</div>
+
+			<div class="col-auto ">
+				<a href="/tos"><span class="text-info">Terms of Service</span></a>
+			</div>
+		</div>
+  </div>
+  
+  
+  <div class="container-fluid position-fixed bottom-0">
+	    <div class="row">
+
+			<div class="col align-self-end text-end">
+				<a href="/support"><span class="btn btn-warning">Support</span></a>
+			</div>
+		</div>
+  </div>
+</footer>
+
+
+  </body>
+</html>
